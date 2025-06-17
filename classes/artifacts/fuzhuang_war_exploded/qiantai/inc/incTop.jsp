@@ -23,7 +23,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     return false;
     </c:if>
     return true
-
   }
 	        function search1111()
 	        {

@@ -1,7 +1,7 @@
-<%@ page language="java" pageEncoding="UTF-8"%>
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ page isELIgnored="false" %> 
+<%@ page isELIgnored="false" %>
 
 <%
 String path = request.getContextPath();
@@ -17,8 +17,16 @@ String path = request.getContextPath();
 		<meta http-equiv="description" content="This is my page" />
         
         <link rel="stylesheet" type="text/css" href="<%=path %>/css/base.css" />
-        
-        <script language="javascript">
+
+		<script type="text/javascript">
+			function tijiao() {
+				if (document.getElementById('biaoqian').value=="") {
+					alert("类别名称不能为空")
+					return false;
+				}
+				return true
+
+			}
         </script>
 	</head>
 
@@ -33,7 +41,7 @@ String path = request.getContextPath();
 						         类别名称：
 						    </td>
 						    <td width="75%" bgcolor="#FFFFFF" align="left">
-						        <input type="text" name="name" size="40"/>
+						        <input type="text" name="name" size="40" id="biaoqian"/>
 						    </td>
 						</tr>
 						<tr align='center' bgcolor="#FFFFFF" onMouseMove="javascript:this.bgColor='red';" onMouseOut="javascript:this.bgColor='#FFFFFF';" height="22">
@@ -41,7 +49,7 @@ String path = request.getContextPath();
 						        &nbsp;
 						    </td>
 						    <td width="75%" bgcolor="#FFFFFF" align="left">
-						       <input type="submit" value="提交"/>&nbsp; 
+						       <input type="submit" onclick="if(!tijiao()){return false}" value="提交"/>&nbsp;
 						       <input type="reset" value="重置"/>&nbsp;
 						    </td>
 						</tr>
