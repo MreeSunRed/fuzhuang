@@ -29,18 +29,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type='text/javascript' src='<%=path %>/dwr/util.js'></script>
     
     <script type="text/javascript">
+        function jiesuan()
+        {
+            <c:if test="${sessionScope.user==null}">
+            alert("请先登录");
+            return false;
+            </c:if>
+            return true
+
+        }
+
             function delGoodsFromCart(goodsId)
 	        {
-	          
+
 	            cartService.delGoodsFromCart(goodsId,callback111);
 	        }
-           
+
             function clearCart()
 	        {
-	       
+
 	            cartService.clearCart(callback111);
 	        }
-           
+
             function modiNum(goodsId,quantity)
 	        {
 	        var r1 = /^[_0-9]{0,20}$/
@@ -51,14 +61,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	            }
 	            else
 	            {
-	         
+
 	                cartService.modiNum(goodsId,quantity,callback111);
 	            }
 	        }
-	        
+
 	        function callback111(data)
 	        {
-	         
+
 	            if(data=="no")
 			    {
 			        alert("库存不足");
@@ -70,9 +80,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        }
     </script>
   </head>
-  
+
   <BODY>
-      <jsp:include flush="true" page="/qiantai/inc/incTop.jsp"></jsp:include> 
+      <jsp:include flush="true" page="/qiantai/inc/incTop.jsp"></jsp:include>
 <div id="container">
     <div id="content">
       <div class="cart-message">
@@ -125,7 +135,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </div>
         <div class="contiue-pay">
           <a href="<%=path %>/index" class="contiue">继续购物</a>
-          <a href="<%=path%>/qiantai/cart/mycart1.jsp" class="pay">结 算</a>
+
+          <a href="<%=path%>/qiantai/cart/mycart1.jsp" class="pay" onclick="if(!jiesuan()){return false}">结 算</a>
         </div>
       </div>
            

@@ -110,7 +110,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
               	<a href="<%=path %>/goods?type=goodsDetailQian&id=${goods.id }"><img src="<%=path %>/${goods.fujian }" width="136" height="112"/></a>
 </p>
               <p class="hot-name"><a href="product/details.html"> ${goods.mingcheng }<span>(¥${goods.shichangjia })</span></a></p>
-               <p class="hot-name"><span>销量：${goods.kucun }</span></a></p>
+               <p class="hot-name"><span>销量：${goods.kucun }</span></p>
             </li>
              </c:forEach>
            

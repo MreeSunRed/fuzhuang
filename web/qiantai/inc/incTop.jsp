@@ -16,6 +16,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 
 <script type="text/javascript">
+  function yonghuzhongxin()
+  {
+    <c:if test="${sessionScope.user==null}">
+    alert("请先登录");
+    return false;
+    </c:if>
+    return true
+  }
 	        function search1111()
 	        {
 		         document.chaxun.submit();
@@ -40,7 +48,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       
         </li>
         <li><a href="<%=path %>/qiantai/cart/mycart.jsp">购物车</a></li>
-        <li><a href="<%=path %>/buy?type=myorder">用户中心</a></li>
+        <li><a href="<%=path %>/buy?type=myorder" onclick="if(!yonghuzhongxin()){return false}">用户中心</a></li>
         <li><a href="login.jsp">管理员登录</a></li>
 
         <li class="clear"></li>
