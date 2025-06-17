@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 
+import javax.jms.Session;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -114,6 +115,11 @@ public class buy_servlet extends HttpServlet
 	{
 		HttpSession session=req.getSession();
 		Tyonghu user=(Tyonghu)session.getAttribute("user");
+		if(user==null){
+			res.sendRedirect("index");
+			return;
+
+		}
 		req.setAttribute("orderList", liuService.orderList(user.getId()));
 		req.getRequestDispatcher("qiantai/order/myorder.jsp").forward(req, res);
         

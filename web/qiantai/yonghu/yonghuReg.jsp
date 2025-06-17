@@ -70,7 +70,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 myreg.focus();
                 return false;
            }
-            if(!(/^1[34578]\d{9}$/.test(document.form111.tel.value))){
+            if(!(/^1\d{10}$/.test(document.form111.tel.value))){
               alert("联系方式码有误，请重新填写");
               return false;
     }
