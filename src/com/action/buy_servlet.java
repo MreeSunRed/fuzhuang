@@ -68,7 +68,7 @@ public class buy_servlet extends HttpServlet
 		session.setAttribute("cart", cart);
 		
 				
-		req.setAttribute("message", "æ“ä½œæˆåŠŸ");
+		req.setAttribute("message", "²Ù×÷³É¹¦");
 		req.setAttribute("path", "qiantai/cart/mycart.jsp");
 		
         String targetURL = "/common/success.jsp";

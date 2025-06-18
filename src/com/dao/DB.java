@@ -28,7 +28,7 @@ public class DB
 			Class.forName(className);
 		} catch (ClassNotFoundException e)
 		{
-			System.out.println("è¿žæŽ¥å¤±è´¥");
+			System.out.println("Á¬½ÓÊ§°Ü");
 			e.printStackTrace();
 		}
 	}
@@ -39,7 +39,7 @@ public class DB
 			con = DriverManager.getConnection(url, user, password);
 		} catch (SQLException e)
 		{
-			System.out.println("è¿žæŽ¥å¤±è´¥");
+			System.out.println("Á¬½ÓÊ§°Ü");
 			con = null;
 			e.printStackTrace();
 		}
@@ -69,7 +69,7 @@ public class DB
 					pstm.execute();
 				} catch (SQLException e)
 				{
-					System.out.println("è¿žæŽ¥å¤±è´¥");
+					System.out.println("Á¬½ÓÊ§°Ü");
 					e.printStackTrace();
 				}
 			}
@@ -94,7 +94,7 @@ public class DB
 				pstm.close();
 		} catch (SQLException e)
 		{
-			System.out.println("è¿žæŽ¥å¤±è´¥");
+			System.out.println("Á¬½ÓÊ§°Ü");
 			e.printStackTrace();
 		}
 		try
@@ -105,7 +105,7 @@ public class DB
 			}
 		} catch (SQLException e)
 		{
-			System.out.println("è¿žæŽ¥å¤±è´¥");
+			System.out.println("Á¬½ÓÊ§°Ü");
 			e.printStackTrace();
 		}
 	}
