@@ -1,2 +1,13 @@
+# Local database credentials
+# Copy src/db.properties.example to src/db.properties and edit that file.
+src/db.properties
 
-classes/
+# IDE and build output
+.idea/
+.metadata/
+.settings/
+.classpath
+.project
+*.iml
+out/
+*.class

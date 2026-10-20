@@ -33,26 +33,65 @@ fuzhuang/
 | `/yonghu` | 用户管理 |
 | `/index` | 前台首页 |
 
+## 配置数据库
+
+数据库连接信息不再写死在代码里，`src/com/dao/DB.java` 会按以下优先级读取：
+
+1. 环境变量 `DB_URL` / `DB_USER` / `DB_PASSWORD`
+2. JVM 参数 `-Ddb.url=...` 等
+3. classpath 下的 `db.properties`
+4. 内置默认值（仅 URL 和用户名）
+
+本地开发推荐用配置文件：
+
+```bash
+cp src/db.properties.example src/db.properties
+```
+
+然后编辑 `src/db.properties`：
+
+```properties
+db.driver=com.mysql.cj.jdbc.Driver
+db.url=jdbc:mysql://localhost:3306/fuzhuang?useUnicode=true&characterEncoding=utf8
+db.user=root
+db.password=你的密码
+```
+
+`src/db.properties` 已加入 `.gitignore`，不会被提交。如果不想建文件，也可以在 Tomcat 启动脚本或 IDE 运行配置里设置环境变量：
+
+```bash
+DB_URL="jdbc:mysql://localhost:3306/fuzhuang?useUnicode=true&characterEncoding=utf8"
+DB_USER=root
+DB_PASSWORD=你的密码
+```
+
 ## 运行
 
 1. 在 MySQL 中创建数据库 `fuzhuang`，并导入商品、分类、订单、用户等表（仓库未附建表 SQL）。
-2. 修改 `src/com/dao/DB.java` 中的数据库地址、账号和密码。
+2. 按上一节配置数据库连接。
 3. 用 IntelliJ IDEA 或 Eclipse 导入工程，配置 Tomcat（`web.xml` 为 Servlet 2.5）。
-4. 部署后访问应用根路径，默认欢迎页为 `/qiantai/default.jsp`。
+4. 重新编译项目后部署（仓库中原有的 `DB.class` 已删除，避免旧配置残留）。
+5. 访问应用根路径，默认欢迎页为 `/qiantai/default.jsp`。
 
 ## 已知问题
 
-这个仓库是当年直接提交的课堂工程，保留了较多原始状态，重新运行前需要先处理：
+1. **JSP 页面不完整**：`WebRoot/` 下只有 `WEB-INF/classes`，实际页面位于 `classes/artifacts/fuzhuang_war_exploded/`，源码目录缺少 `qiantai/` 等前台页面。
+2. `web.xml` 中注册的 `admin_servlet`、`gonggao_servlet` 在 `src` 中不存在，与现有代码不一致。
+3. 提交了 `.idea/`、`.metadata/`、`.classpath`、编译后的 `.class` 和 jar 等 IDE/构建产物。
+4. 缺少建表 SQL 与依赖说明，无法做到开箱即用。
 
-1. **数据库口令硬编码**在 `src/com/dao/DB.java` 中，且已进入公开仓库。建议改用环境变量或外部配置文件，并**更换该数据库密码**。
-2. **JSP 页面不完整**：`WebRoot/` 下只有 `WEB-INF/classes`，实际页面位于 `classes/artifacts/fuzhuang_war_exploded/`，源码目录缺少 `qiantai/` 等前台页面。
-3. `web.xml` 中注册的 `admin_servlet`、`gonggao_servlet` 在 `src` 中不存在，与现有代码不一致。
-4. 提交了 `.idea/`、`.metadata/`、`.classpath`、编译后的 `.class` 和 jar 等 IDE/构建产物。
-5. 缺少建表 SQL 与依赖说明，无法做到开箱即用。
+## 安全提示
+
+本仓库的**历史提交**中曾包含明文数据库口令。当前代码已改为外部配置，但旧提交仍然可以被查看和检出。请务必：
+
+- 如果该口令仍在使用，**立即修改数据库密码**；
+- 如果同一口令还用于其他服务，一并更换；
+- 不要把真实的 `src/db.properties` 提交到仓库。
+
+如需彻底从 Git 历史中清除该口令，需要使用 `git filter-repo` 重写历史并强制推送，这会改变所有提交哈希，操作前请先备份。
 
 ## 后续改进建议
 
-- 把数据库配置抽到 `db.properties`，并加入 `.gitignore` 管理本地配置
 - 补齐 `qiantai/` 前台 JSP 与建表 SQL
-- 用 Maven 管理依赖，`src/main/webapp` 标准目录结构
-- 补一个 `.gitignore`，只提交源码与配置模板
+- 用 Maven 管理依赖，迁移到 `src/main/webapp` 标准目录结构
+- 把编译产物和 IDE 配置从版本库中清理掉，只提交源码与配置模板
